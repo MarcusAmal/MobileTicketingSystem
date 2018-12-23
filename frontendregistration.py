@@ -1,18 +1,27 @@
 import tkinter as tk
 import pyrebase
 
-#Non-authenticated access    
+#Allows Non-authenticated access IF access rules of database are approriately adjusted    
 config = {
-    "apiKey": #enter firebase api key,
-    "authDomain" : #firebase project id + ".firebaseapp.com",
-    "databaseURL": #database url,
-    "storageBucket" : #firebase project id + ".appspot.com",
+    #"apiKey": "project api key",
+    #"authDomain" : "project id.firebaseapp.com",
+    #"databaseURL": database url,
+    #"storageBucket" : "project id.appspot.com"
     }
 
 firebase = pyrebase.initialize_app(config)
 
-db = firebase.database()
+#if database rules are set to "auth !== null" for both read and write, authentication is implemented.
+#create new user in authentication section of firebase console (allow users with email and password)
+#, then fill in following sections with appropriate
+#information for authentication implementation.
 
+authentication = firebase.auth()
+#newUser = authentication.sign_in_with_email_and_password("valid authenticated email","valid authenticated password")
+newUser = authentication.refresh(newUser['refreshToken'])
+
+
+db = firebase.database()
 rootWindow = tk.Tk()
 rootWindow.title = "Ticket Registration"
 
@@ -52,7 +61,8 @@ def dataEntry():
     }
     for key,value in dataSet.items():
         newData = {key:value}
-        db.child(name).push(newData)
+        db.child(name).push(newData, newUser['idToken'])
+        #if running without authentication, get rid of second parameter in push call
 
 def clearEntries():
     nameEntry.delete(0,'end')
