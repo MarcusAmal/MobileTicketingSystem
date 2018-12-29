@@ -3,10 +3,10 @@ import pyrebase
 
 #Allows Non-authenticated access IF access rules of database are approriately adjusted    
 config = {
-    #"apiKey": "project api key",
-    #"authDomain" : "project id.firebaseapp.com",
-    #"databaseURL": database url,
-    #"storageBucket" : "project id.appspot.com"
+    #"apiKey": "apiKey for Database",
+    #"authDomain" : "projectid.firebaseapp.com",
+    #"databaseURL": "database url",
+    #"storageBucket" :  "projectid.appspot.com"
     }
 
 firebase = pyrebase.initialize_app(config)
@@ -17,7 +17,7 @@ firebase = pyrebase.initialize_app(config)
 #information for authentication implementation.
 
 authentication = firebase.auth()
-#newUser = authentication.sign_in_with_email_and_password("valid authenticated email","valid authenticated password")
+#newUser = authentication.sign_in_with_email_and_password("registered email","registered password")
 newUser = authentication.refresh(newUser['refreshToken'])
 
 
@@ -55,9 +55,9 @@ def dataEntry():
     dataSet = {
         "Age" : "" + ageEntry.get(),
         "Email" : "" + emailEntry.get(),
-        "TicketNum" : "" + ticketNumEntry.get(),
         "Sid" : "" + sidEntry.get(),
         "ClassStanding" : "" + classEntry.get(),
+        "TicketNumber" : "" + ticketNumEntry.get()
     }
     for key,value in dataSet.items():
         newData = {key:value}

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link href="styles.css" type ="text/css" rel = "stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  </head>
+  <body>
+    <section id = "inputName">
+      <input id = "identifier" type ="text" >
+      <button id = "submitID" type = 'button' onclick= 'findData(document.getElementById("identifier").value)'> Enter </button>
+    </section>
+    <section id = "infoDisplay">
+    </section>
+  </body>
+
+  <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: ,
+    authDomain: ,
+    databaseURL: ,
+    projectId: ,
+    storageBucket: ,
+    messagingSenderId: 
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script>
+  var database = firebase.database();
+  function findData(id){
+    var parentClear = document.getElementById("infoDisplay");
+    while(parentClear.firstChild != null){
+      parentClear.removeChild(parentClear.firstChild);
+    }
+    var userinfo = firebase.database().ref('/'+id);
+    userinfo.once("value").then(function(snapshot){
+      var idObj = {
+        Name : id
+      }
+      var count = 0;
+      var list =[];
+      list.push(idObj);
+      snapshot.forEach(function(element){
+        list.push(element.val());
+      });
+      list.forEach(function(element){
+        var objectFields = Object.keys(element);
+        var parent = document.getElementById("infoDisplay");
+        var newEntry = document.createElement("h1");
+        newEntry.setAttribute('class', "input");
+        newEntry.setAttribute('id', "Entry"+count);
+        newEntry.innerHTML = element[objectFields[0]];
+        parent.appendChild(newEntry);
+        count += 1;
+      });
+    });
+  }
+
+</script>
+
+</html>

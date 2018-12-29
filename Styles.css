@@ -1,0 +1,67 @@
+body{
+  min-width: 100%;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+  margin : 0;
+  background-color: black;
+}
+h1{
+  font-size: 40px;
+  margin: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: black;
+}
+.input{
+  margin-right: 0px;
+  background-color: white;
+}
+#Entry0{
+    margin-left: 100px;
+}
+#Entry1{
+  margin-left: 150px;
+}
+#Entry2{
+  margin-left: 200px;
+}
+#Entry3{
+  margin-left: 250px;
+}
+#Entry4{
+  margin-left: 300px;
+}
+#Entry5{
+  margin-left: 350px;
+}
+#inputName{
+  background-color: black;
+  padding: 10px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input{
+  width: 25%;
+  background-color: #F7F7F7;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 4px black;
+}
+input:focus {
+  background-color: white ;
+}
+button{
+  margin-left: 20px;
+  padding: 15px;
+  background-color: black;
+  color:white;
+  font-size: 20px;
+  border: 2px black;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+button:hover{
+  background-color: gray;
+}
