@@ -27,13 +27,4 @@ def helloCallBack():
     print(msg)
 
 
-img = ImageTk.PhotoImage(file = test)
-panel = tk.Label(window, image = img)
 
-B = Button(top, text = "Hello", command = helloCallBack)
-W = Message(top, textvariable = var)
-panel.pack();
-W.pack()
-B.place(x = 50,y = 50)
-
-top.mainloop()
