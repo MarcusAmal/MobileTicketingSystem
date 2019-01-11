@@ -9,6 +9,7 @@
     <section id = "inputName">
       <input id = "identifier" type ="text" >
       <button id = "submitID" type = 'button' onclick= 'findData(document.getElementById("identifier").value)'> Enter </button>
+      <button id = "checkIn" type = 'button' onclick='checkedIn(document.getElementById("identifier").value)'> Check In </button>
     </section>
     <section id = "infoDisplay">
     </section>
@@ -19,18 +20,22 @@
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: ,
-    authDomain: ,
-    databaseURL: ,
-    projectId: ,
-    storageBucket: ,
-    messagingSenderId: 
+    apiKey: 
+    authDomain:
+    databaseURL:
+    projectId:
+    storageBucket:
+    messagingSenderId:
   };
   firebase.initializeApp(config);
 </script>
 
 <script>
   var database = firebase.database();
+  firebase.auth().signInWithEmailAndPassword("arkaprabhab@gmail.com", "sasa19").catch(function(error) {
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  });
   function findData(id){
     var parentClear = document.getElementById("infoDisplay");
     while(parentClear.firstChild != null){
@@ -39,7 +44,7 @@
     var userinfo = firebase.database().ref('/'+id);
     userinfo.once("value").then(function(snapshot){
       var idObj = {
-        Name : id
+        TicketNum : id
       }
       var count = 0;
       var list =[];
@@ -58,6 +63,12 @@
         count += 1;
       });
     });
+  }
+  function checkedIn(id){
+      var userinfo = firebase.database().ref('/'+id);
+      userinfo.child("Checked In").set({
+        "Checked In" : "Yes"
+      });
   }
 
 </script>
