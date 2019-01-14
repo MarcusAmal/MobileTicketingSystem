@@ -1,12 +1,16 @@
 import tkinter as tk
 import pyrebase
 
+username = input("Enter Username ")
+
+password = input("Enter Password ")
+
 #Allows Non-authenticated access IF access rules of database are approriately adjusted    
 config = {
-    #"apiKey": "apikey",
-    #"authDomain" : "projectid.firebaseapp.com",
-    #"databaseURL": "project url",
-    #"storageBucket" :  "projectid.appspot.com"
+    "apiKey": "AIzaSyBsIB8_omRiSB0v49NQKkZNKy4_QmY30GA",
+    "authDomain" : "sasaticketing19.firebaseapp.com",
+    "databaseURL": "https://sasaticketing19.firebaseio.com/",
+    "storageBucket" :  "sasaticketing19.appspot.com"
     }
 
 firebase = pyrebase.initialize_app(config)
@@ -17,16 +21,13 @@ firebase = pyrebase.initialize_app(config)
 #information for authentication implementation.
 
 authentication = firebase.auth()
-#newUser = authentication.sign_in_with_email_and_password("valid registered email","valid registered password")
+newUser = authentication.sign_in_with_email_and_password(username,password)
 newUser = authentication.refresh(newUser['refreshToken'])
-
 
 db = firebase.database()
 rootWindow = tk.Tk()
 rootWindow.title = "Ticket Registration"
 
-
-    
 tk.Label(rootWindow, text = "Name", width = 30).grid(row = 0)
 nameEntry = tk.Entry(rootWindow)
 nameEntry.grid(row = 0, column = 1)
@@ -47,13 +48,9 @@ tk.Label(rootWindow, text = "Student Id",width = 30).grid(row = 4)
 sidEntry = tk.Entry(rootWindow)
 sidEntry.grid(row = 4, column = 1)
 
-tk.Label(rootWindow, text = "Class Standing",width = 30).grid(row = 5)
-classEntry = tk.Entry(rootWindow)
-classEntry.grid(row = 5, column = 1)
-
-tk.Label(rootWindow, text = "Student Status", width = 30).grid(row = 6)
+tk.Label(rootWindow, text = "Student Status", width = 30).grid(row = 5)
 uwStudentEntry = tk.Entry(rootWindow)
-uwStudentEntry.grid(row = 6, column = 1)
+uwStudentEntry.grid(row = 5, column = 1)
 
 def dataEntry():
     ticketNum = ticketNumEntry.get()
@@ -62,8 +59,7 @@ def dataEntry():
         "Age" : "" + ageEntry.get(),
         "Email" : "" + emailEntry.get(),
         "Sid" : "" + sidEntry.get(),
-        "ClassStanding" : "" + classEntry.get(),
-        "Student Status" : "" + uwStudentEntry.get(),
+        "Student Status" : "" + uwStudentEntry.get()
         #"Checked In" : "No"
     }
     for key,value in dataSet.items():
@@ -77,14 +73,13 @@ def clearEntries():
     emailEntry.delete(0,'end')
     ticketNumEntry.delete(0,'end')
     sidEntry.delete(0,'end')
-    classEntry.delete(0,'end')
     uwStudentEntry.delete(0, 'end')
 
 submitButton = tk.Button(rootWindow, text = "Submit", width = 20, command = dataEntry)
-submitButton.grid(row = 6,column = 2)
+submitButton.grid(row = 5,column = 2)
 
 clearButton = tk.Button(rootWindow, text = "Clear Data", width = 20, command = clearEntries)
-clearButton.grid(row = 6, column = 3)
+clearButton.grid(row = 5, column = 3)
 
 rootWindow.mainloop()
 
